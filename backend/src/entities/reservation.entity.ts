@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, JoinColumn } from 'typeorm';
-import { User } from '../entities/user.entity';
-import { Movie } from '../entities/movie.entity';
+import { User } from './user.entity';
+import { Movie } from './movie.entity';
 
 @Entity()
 export class Reservation {

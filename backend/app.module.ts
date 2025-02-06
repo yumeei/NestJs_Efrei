@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-import { Movie } from './entities/movie.entity';
-import { Reservation } from './entities/reservation.entity';
-
-import { AuthModule } from './auth/auth.module';
-import { MoviesModule } from './movies/movies.module';
-import { ReservationsModule } from './reservations/reservations.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+
+import { User } from './src/entities/user.entity';
+import { Movie } from './src/entities/movie.entity';
+import { Reservation } from './src/entities/reservation.entity';
+
+import { AuthModule } from './src/auth/auth.module';
+import { UsersModule } from './src/users/users.module';
+import { MovieModule } from './src/movies/movies.module';
+import { ReservationModule } from './src/reservations/reservations.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), 
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -26,8 +27,8 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     UsersModule,
-    MoviesModule,
-    ReservationsModule,
+    MovieModule,
+    ReservationModule,
   ],
 })
 export class AppModule { }
