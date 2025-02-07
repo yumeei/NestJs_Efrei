@@ -23,7 +23,7 @@ import { ReservationModule } from './src/reservations/reservations.module';
       database: process.env.DB_NAME,
       entities: [User, Movie, Reservation],
       autoLoadEntities: true,
-      synchronize: true,
+      // synchronize: true,
     }),
     AuthModule,
     UsersModule,
