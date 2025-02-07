@@ -5,6 +5,11 @@ import { MovieService } from './movies.service';
 export class MovieController {
   constructor(private readonly movieService: MovieService) { }
 
+  @Get()
+  async getMovies() {
+    return this.movieService.getMovies();
+  }
+
   @Get('import')
   async importMovies() {
     await this.movieService.importMoviesFromTMDB();

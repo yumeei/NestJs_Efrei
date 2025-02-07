@@ -7,8 +7,6 @@ import { ConfigService } from '@nestjs/config';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(configService: ConfigService) {
     const secretKey = configService.get<string>('JWT_SECRET');
-    console.log('JWT_SECRET from ConfigService:', configService.get<string>('JWT_SECRET'));
-
 
     if (!secretKey) {
       throw new Error('JWT_SECRET is not defined in the environment variables');
