@@ -69,7 +69,11 @@ export class ReservationService {
     return this.reservationRepo.find({ relations: ['user', 'movie'] });
   }
 
-  async listReservation(userId: number) {
+  async getReservationById(reservationId: number) {
+    return await this.reservationRepo.findOne({ where: { id: reservationId } });
+  }
+
+  async listReservationsByUser(userId: number) {
     return this.reservationRepo.find({ where: { user: { id: userId } } });
   }
 

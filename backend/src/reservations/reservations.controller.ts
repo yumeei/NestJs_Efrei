@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, NotFoundException } from '@nestjs/common';
 import { ReservationService } from './reservations.service';
 import { Reservation } from '../entities/reservation.entity';
 
@@ -17,8 +17,17 @@ export class ReservationController {
   }
 
   @Get(':userId')
-  async listReservations(@Param('userId') userId: number) {
-    return this.reservationService.listReservation(userId);
+  async listReservationsByUser(@Param('userId') userId: number) {
+    return this.reservationService.listReservationsByUser(userId);
+  }
+
+  @Get(':reservationId')
+  async getReservationById(@Param('reservationId') reservationId: number) {
+    const reservation = await this.reservationService.getReservationById(reservationId);
+    if (!reservation) {
+      throw new NotFoundException(`La réservation avec l'ID ${reservationId} n'existe pas.`);
+    }
+    return reservation;
   }
 
   @Delete(':reservationId')
