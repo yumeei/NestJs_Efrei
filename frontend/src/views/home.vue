@@ -4,14 +4,12 @@
 
     <input
       v-model="searchQuery"
-      @input="fetchMovies"
       placeholder="Rechercher des films..."
       class="search-input"
     />
-
     <div v-if="movies.length" class="movies-container">
       <div class="movies-grid">
-        <div v-for="movie in movies" :key="movie.id" class="movie-card">
+        <div v-for="movie in filteredMovies" :key="movie.id" class="movie-card">
           <img
             :src="getPosterUrl(movie.poster_path)"
             :alt="movie.title"
@@ -73,11 +71,17 @@ export default {
       }
       return "https://via.placeholder.com/500x750?text=No+Image";
     },
+    
   },
-  watch: {
-    searchQuery() {
-      this.fetchMovies();
-    },
+  computed: {
+    filteredMovies() {
+      if (!this.searchQuery.trim()) {
+        return this.movies;
+      }
+      return this.movies.filter(movie => 
+        movie.title.toLowerCase().includes(this.searchQuery.toLowerCase().trim())
+      );
+    }
   },
   mounted() {
     this.fetchMovies();
