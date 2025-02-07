@@ -11,6 +11,11 @@ import { UsersModule } from './src/users/users.module';
 import { MovieModule } from './src/movies/movies.module';
 import { ReservationModule } from './src/reservations/reservations.module';
 
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_PASS:', process.env.DB_PASS);
+console.log('DB_NAME:', process.env.DB_NAME);
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -22,7 +27,10 @@ import { ReservationModule } from './src/reservations/reservations.module';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [User, Movie, Reservation],
-      synchronize: true,
+      // synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     AuthModule,
     UsersModule,
